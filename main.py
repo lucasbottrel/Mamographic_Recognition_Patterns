@@ -1,4 +1,2 @@
-print('Hello develop')
-a = 2 
-b = 3
-print(a+b)
+print('Hello World')
+print('Trabalho Processamento de Imanges - first commit')

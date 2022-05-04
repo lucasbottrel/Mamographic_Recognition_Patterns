@@ -3,18 +3,13 @@ from tkinter import ttk
 from PIL import Image, ImageTk
 from tkinter import filedialog
 
-# Function for opening the
-# file explorer window
-def browseFiles():
-    filename = filedialog.askopenfilename(initialdir="/", title="Select a File",
-                                          filetypes=(("Text files",
-                                                      ["*.png*", "*.jpeg*", "*.jpg*"]),
-                                                     ("all files",
-                                                      "*.*")))
-
-    # Change label contents
-    label_file_explorer.configure(text="File Opened: "+filename)
-
+def upload_file():
+    global img
+    f_types = [('Jpeg Files', '*.jpeg*'),('Png Files', '*.png*'),('Jpg Files', '*.jpg')]
+    filename = filedialog.askopenfilename(filetypes=f_types)
+    img = ImageTk.PhotoImage(file=filename)
+    imgFrm =Label(topFrm,image=img) # using Button 
+    imgFrm.pack()
 
 # MAIN FRAME
 root = Tk()
@@ -22,16 +17,12 @@ root.wm_title("Mamographic Recognition Patterns")
 root.geometry('1280x720')
 
 # TOP BAR
-# Create a File Explorer label
-label_file_explorer = Label(root,
-                            text="File Explorer using Tkinter",
-                            width=100, height=4,
-                            fg="blue")
 menubar = Menu(root)
+
 # create a sub-menu
 filemenu = Menu(menubar, tearoff=0)
 filemenu.add_command(label="New")
-filemenu.add_command(label="Open", command=browseFiles)
+filemenu.add_command(label="Open", command=upload_file)
 filemenu.add_command(label="Save")
 
 menubar.add_cascade(label="File", menu=filemenu)

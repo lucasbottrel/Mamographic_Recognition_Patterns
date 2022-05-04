@@ -4,12 +4,21 @@ from PIL import Image, ImageTk
 from tkinter import filedialog
 
 def upload_file():
+    clear_label_image()
     global img
-    f_types = [('Jpeg Files', '*.jpeg*'),('Png Files', '*.png*'),('Jpg Files', '*.jpg')]
+    f_types = (
+        ("Image files", "*.png *.jpeg"), ("All files", "*.*")
+    )
     filename = filedialog.askopenfilename(filetypes=f_types)
-    img = ImageTk.PhotoImage(file=filename)
-    imgFrm =Label(topFrm,image=img) # using Button 
+    img = (Image.open(filename))
+    resized_image= img.resize((400,400), Image.ANTIALIAS)
+    img = ImageTk.PhotoImage(resized_image) 
+    imgFrm.config(image=img) 
+    imgFrm.place(relx=0.5, rely=0.5)
     imgFrm.pack()
+
+def clear_label_image():
+    imgFrm.config(image = '');
 
 # MAIN FRAME
 root = Tk()
@@ -32,6 +41,7 @@ root.config(menu=menubar)
 
 # ÁREA DA IMAGEM
 topFrm = LabelFrame(root, text="imagem")
+imgFrm =Label(topFrm,image='') 
 topFrm.place(relwidth=1, relheight=0.75)
 topFrm.configure(background='white')
 

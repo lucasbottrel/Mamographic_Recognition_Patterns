@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import ttk
 from PIL import Image, ImageTk
 from tkinter import filedialog
+import calc
 
 def upload_file():
     clear_label_image()
@@ -29,25 +30,32 @@ root.geometry('1280x720')
 menubar = Menu(root)
 
 # create a sub-menu
-filemenu = Menu(menubar, tearoff=0)
-filemenu.add_command(label="New")
-filemenu.add_command(label="Open", command=upload_file)
-filemenu.add_command(label="Save")
+imgMenu = Menu(menubar, tearoff=0)
+imgMenu.add_command(label="Nova Imagem", command=upload_file)
+imgMenu.add_command(label="Substituir Imagem", command=upload_file)
 
-menubar.add_cascade(label="File", menu=filemenu)
-menubar.add_command(label="Quit!", command=root.quit)
+calcMenu = Menu(menubar, tearoff=0)
+calcMenu.add_command(label="Haralick", command=calc.openHaralick)
+
+menubar.add_cascade(label="Imagem", menu=imgMenu)
+menubar.add_cascade(label="Calcular", menu=calcMenu)
+
 # display the menu
 root.config(menu=menubar)
 
 # ÁREA DA IMAGEM
-topFrm = LabelFrame(root, text="imagem")
-imgFrm =Label(topFrm,image='') 
-topFrm.place(relwidth=1, relheight=0.75)
+topSpace = Frame(root)
+topSpace.place(relwidth=1, relheight=0.15)
+topSpace.configure(background='white')
+
+topFrm = Frame(root)
+imgFrm =Label(topFrm,image='')
+topFrm.place(relwidth=1, relheight=0.75, rely=0.15)
 topFrm.configure(background='white')
 
 # ÁREA DE LOG
-bottomFrm = LabelFrame(root, text="terminal", fg='#fff')
-bottomFrm.place(relwidth=1, relheight=0.25, rely=0.75)
+bottomFrm = LabelFrame(root, fg='#fff', text='Tempo de Execução')
+bottomFrm.place(relwidth=1, relheight=0.1, rely=0.9)
 bottomFrm.configure(background='black')
 
 root.mainloop()

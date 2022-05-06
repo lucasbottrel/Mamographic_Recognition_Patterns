@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import ttk
+from imageio import imread
 import skimage
 
 print(skimage.__version__)
@@ -15,8 +16,9 @@ def openHaralick():
     homog.config(background="white")
     homog.place(relx=0,y=20)
     
-    homog = Label(haralickScreen, text="Homogeneidade")
+    homog = Label(haralickScreen, text="Entropia : ")
     homog.config(background="white")
     homog.place(x=40,y=70)
-    
     haralickScreen.mainloop()
+    
+  

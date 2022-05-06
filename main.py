@@ -1,8 +1,11 @@
+from fileinput import filename
 from tkinter import *
 from tkinter import ttk
 from PIL import Image, ImageTk
 from tkinter import filedialog
-import calc
+from skimage.io import imread
+from calc import openHaralick
+from haralick import entropy
 
 def upload_file():
     clear_label_image()
@@ -11,6 +14,8 @@ def upload_file():
         ("Image files", "*.png *.jpeg"), ("All files", "*.*")
     )
     filename = filedialog.askopenfilename(filetypes=f_types)
+    im = imread(filename)
+    print(entropy(im))
     img = (Image.open(filename))
     resized_image= img.resize((400,400), Image.ANTIALIAS)
     img = ImageTk.PhotoImage(resized_image) 
@@ -35,7 +40,7 @@ imgMenu.add_command(label="Nova Imagem", command=upload_file)
 imgMenu.add_command(label="Substituir Imagem", command=upload_file)
 
 calcMenu = Menu(menubar, tearoff=0)
-calcMenu.add_command(label="Haralick", command=calc.openHaralick)
+calcMenu.add_command(label="Haralick", command=openHaralick)
 
 menubar.add_cascade(label="Imagem", menu=imgMenu)
 menubar.add_cascade(label="Calcular", menu=calcMenu)

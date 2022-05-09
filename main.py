@@ -1,3 +1,4 @@
+import time
 from tkinter import *
 from tkinter import filedialog
 from imageio import imread
@@ -9,7 +10,10 @@ from skimage import *
 import numpy as np
 from PIL import Image, ImageTk
 
+from haralick import *
+
 img_calc = None
+execution_time = 0
 
 def clear_label_image():
     imgFrm.config(image = '')
@@ -33,6 +37,7 @@ def upload_file():
     imgFrm.pack()
 
 def openHaralick():
+    
     haralickScreen = Tk()
     haralickScreen.wm_title("Haralick Calcs")
     haralickScreen.geometry('500x400')
@@ -43,21 +48,26 @@ def openHaralick():
     title.config(background="white")
     title.place(x=30,y=20)
     
-    haralick_calcs = haralick_calcs(img_calc)
+    start = time.time()
+    
+    haralick_results = haralick_calcs(img_calc)
+    
+    global execution_time
+    execution_time = time.time() - start
     
     c1 = Label(haralickScreen, text="C1 ", font=('',14))
     c1.config(background="white")
     c1.place(x=30,y=80)
     
-    homog = Label(haralickScreen, text="Homogeneidade: " + str(round(homog_1,2)), font=('',12))
+    homog = Label(haralickScreen, text="Homogeneidade: " + str(round(haralick_results[0].homogeneity,2)), font=('',12))
     homog.config(background="white")
     homog.place(x=30,y=120)
     
-    energ = Label(haralickScreen, text="Energia: " + str(round(energ_1,2)), font=('',12))
+    energ = Label(haralickScreen, text="Energia: " + str(round(haralick_results[0].energy,2)), font=('',12))
     energ.config(background="white")
     energ.place(x=30,y=160)
     
-    entrop = Label(haralickScreen, text="Entropia: " + str(round(entrop_1,2)), font=('',12))
+    entrop = Label(haralickScreen, text="Entropia: " + str(round(haralick_results[0].entropy,2)), font=('',12))
     entrop.config(background="white")
     entrop.place(x=30,y=200)
 
@@ -96,6 +106,8 @@ topFrm.configure(background='white')
 
 # ÁREA DE LOG
 bottomFrm = LabelFrame(root, fg='#fff', text='Tempo de Execução')
+execTimeFrm = Label(bottomFrm, text=execution_time, fg='white', background='black', font=('',11))
+execTimeFrm.place(x=10, y=10)
 bottomFrm.place(relwidth=1, relheight=0.1, rely=0.9)
 bottomFrm.configure(background='black')
 

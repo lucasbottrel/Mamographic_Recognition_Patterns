@@ -1,14 +1,14 @@
-from ctypes.wintypes import RGB
 import time
 from tkinter import *
 from tkinter import filedialog
-from turtle import left
+from matplotlib import pyplot as plt
 from imageio import imread
 from skimage import data
 from skimage.feature import graycomatrix, graycoprops
 from skimage.measure import shannon_entropy
 from skimage.morphology import disk, ball
 from skimage import *
+from skimage import io
 import numpy as np
 from PIL import Image, ImageTk
 
@@ -16,6 +16,7 @@ from haralick import *
 
 img_calc = None
 execution_time = 0
+filename = ''
 
 def clear_label_image():
     imgFrm.config(image = '')
@@ -25,6 +26,7 @@ def upload_file():
     
     global img
     global img_calc
+    global filename
     
     f_types = (("Image files", "*.png *.jpeg"), ("All files", "*.*"))
     filename = filedialog.askopenfilename(filetypes=f_types)
@@ -34,8 +36,6 @@ def upload_file():
     img = (Image.open(filename))
     img= ImageTk.PhotoImage(img.resize((400,400), Image.ANTIALIAS))
     imgFrm.config(image=img) 
-    imgFrm.place(relx=0.5, rely=0.5)
-    
     imgFrm.pack()
 
 def openHaralick():
@@ -120,6 +120,17 @@ def openHaralick():
     execTimeFrm.place(x=10, y=5)
     bottomFrm.place(relwidth=1, relheight=0.2, rely=0.8)
 
+def resampling(shades):
+    
+    resampled_img = imread(filename)
+    maxValue=resampled_img.max()
+    
+    for i in range(len(resampled_img)):
+        for j in range(len(resampled_img)):
+            resampled_img[i][j] = resampled_img[i][j] / maxValue * shades
+    
+    io.imshow(resampled_img, cmap='gray')
+    io.show()
 
 # MAIN FRAME
 root = Tk()
@@ -137,15 +148,28 @@ imgMenu.add_command(label="Substituir Imagem", command=upload_file)
 calcMenu = Menu(menubar, tearoff=0)
 calcMenu.add_command(label="Haralick", command=openHaralick)
 
+reamosMenu = Menu(menubar, tearoff=0)
+reamosMenu.add_command(label="32 tons de cinza", command=lambda:resampling(32))
+reamosMenu.add_command(label="16 tons de cinza", command=lambda:resampling(16))
+reamosMenu.add_command(label="8 tons de cinza", command=lambda:resampling(8))
+reamosMenu.add_command(label="4 tons de cinza", command=lambda:resampling(4))
+
+svmMenu = Menu(menubar, tearoff=0)
+svmMenu.add_command(label="Treinar", command='')
+svmMenu.add_command(label="Testar", command='')
+svmMenu.add_command(label="Classificar imagem", command='')
+
 menubar.add_cascade(label="Imagem", menu=imgMenu)
 menubar.add_cascade(label="Calcular", menu=calcMenu)
+menubar.add_cascade(label="Reamostragem", menu=reamosMenu)
+menubar.add_cascade(label="SVM", menu=svmMenu)
 
 # display the menu
 root.config(menu=menubar, background='white')
 
 # ÁREA DA IMAGEM
 topFrm = Frame(root)
-imgFrm = Label(topFrm,image='')
+imgFrm = Label(topFrm,image='', background='white')
 topFrm.place(relwidth=1, relheight=0.9, rely=0.05)
 topFrm.configure(background='white')
 

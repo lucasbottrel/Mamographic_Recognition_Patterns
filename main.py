@@ -141,20 +141,16 @@ menubar.add_cascade(label="Imagem", menu=imgMenu)
 menubar.add_cascade(label="Calcular", menu=calcMenu)
 
 # display the menu
-root.config(menu=menubar)
+root.config(menu=menubar, background='white')
 
 # ÁREA DA IMAGEM
-topSpace = Frame(root)
-topSpace.place(relwidth=1, relheight=0.15)
-topSpace.configure(background='white')
-
 topFrm = Frame(root)
 imgFrm = Label(topFrm,image='')
-topFrm.place(relwidth=1, relheight=0.75, rely=0.15)
+topFrm.place(relwidth=1, relheight=0.9, rely=0.05)
 topFrm.configure(background='white')
 
 # ÁREA DE LOG
 bottomFrm = LabelFrame(root, fg='#fff', text='Classificação da Imagem', background='black')
-bottomFrm.place(relwidth=1, relheight=0.1, rely=0.9)
+bottomFrm.place(relwidth=1, relheight=0.2, rely=0.8)
 
 root.mainloop()

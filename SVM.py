@@ -102,14 +102,10 @@ def classify(results):
     
     
     if(classifier.predict(test)[0] == 1):
-        print('BIRADS1')
         return 'BIRADS1'
     elif(classifier.predict(test)[0] == 2):
-        print('BIRADS2')
         return 'BIRADS2'
     elif(classifier.predict(test)[0] == 3):
-        print('BIRADS3')
         return 'BIRADS3'
     elif(classifier.predict(test)[0] == 4):
-        print('BIRADS4')
         return 'BIRADS4'

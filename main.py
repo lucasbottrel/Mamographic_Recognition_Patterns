@@ -191,7 +191,10 @@ def resampling(shades):
     io.imshow(resampled_img, cmap='gray')
     io.show()
     
-def img_classify(results):
+def img_classify():
+    global filename
+    aux = imread(filename)
+    results = haralick_calcs(aux)
     global img_classification
     img_classification = classify(results)
     classFrm = Label(bottomFrm, text=img_classification , fg='white', background='black', font=('', 16))
@@ -225,7 +228,7 @@ reamosMenu.add_command(label="4 tons de cinza", command=lambda: resampling(4))
 # SVM Menu
 svmMenu = Menu(menubar, tearoff=0)
 svmMenu.add_command(label="Treinar / Testar", command=openSVM)
-svmMenu.add_command(label="Classificar imagem", command=lambda: img_classify(haralick_results))
+svmMenu.add_command(label="Classificar imagem", command=lambda: img_classify())
 svmMenu.add_command(label="Matriz de Confusão", command=confused_matrix)
 svmMenu.add_command(label="Comparação de Erros", command=compare_matrix)
 

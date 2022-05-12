@@ -1,3 +1,4 @@
+import gc
 from haralickResult import haralickResult
 from skimage import data
 from skimage.feature import graycomatrix, graycoprops
@@ -17,35 +18,35 @@ def haralick_calcs(img_calc):
     haralick_1 = haralickResult(
         gcm_1,
         graycoprops(gcm_1, 'energy')[0,0],
-        shannon_entropy(gcm_1, base=2),
+        shannon_entropy(gcm_1),
         graycoprops(gcm_1, 'homogeneity')[0,0]
     )
     
     haralick_2 = haralickResult(
         gcm_2,
         graycoprops(gcm_2, 'energy')[0,0],
-        shannon_entropy(gcm_2, base=2),
+        shannon_entropy(gcm_2),
         graycoprops(gcm_2, 'homogeneity')[0,0]
     )
     
     haralick_4 = haralickResult(
         gcm_4,
         graycoprops(gcm_4, 'energy')[0,0],
-        shannon_entropy(gcm_4, base=2),
+        shannon_entropy(gcm_4),
         graycoprops(gcm_4, 'homogeneity')[0,0]
     )
     
     haralick_8 = haralickResult(
         gcm_8,
         graycoprops(gcm_8, 'energy')[0,0],
-        shannon_entropy(gcm_8, base=2),
+        shannon_entropy(gcm_8),
         graycoprops(gcm_8, 'homogeneity')[0,0]
     )
     
     haralick_16 = haralickResult(
         gcm_16,
         graycoprops(gcm_16, 'energy')[0,0],
-        shannon_entropy(gcm_16, base=2),
+        shannon_entropy(gcm_16),
         graycoprops(gcm_16, 'homogeneity')[0,0]
     )
     

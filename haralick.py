@@ -7,14 +7,17 @@ from skimage.morphology import disk, ball
 from skimage import *
 import numpy as np
 
+# calculate haralick parameters
 def haralick_calcs(img_calc):
     
+    # comatrix for each distance
     gcm_1 = graycomatrix(img_calc, [1], [0, np.pi/4, np.pi/2, 3*np.pi/4])
     gcm_2 = graycomatrix(img_calc, [2], [0, np.pi/4, np.pi/2, 3*np.pi/4])
     gcm_4 = graycomatrix(img_calc, [4], [0, np.pi/4, np.pi/2, 3*np.pi/4])
     gcm_8 = graycomatrix(img_calc, [8], [0, np.pi/4, np.pi/2, 3*np.pi/4])
     gcm_16 = graycomatrix(img_calc, [16], [0, np.pi/4, np.pi/2, 3*np.pi/4])
     
+    # create object per matrix generated
     haralick_1 = haralickResult(
         gcm_1,
         graycoprops(gcm_1, 'energy')[0,0],

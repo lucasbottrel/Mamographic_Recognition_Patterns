@@ -52,8 +52,11 @@ def openSVM():
     SVMScreen = Tk()
     
     SVMScreen.wm_title("SVM Accuracy")
-    SVMScreen.geometry('400x200')
+    SVMScreen.geometry('400x250')
     SVMScreen.config(background="white")
+
+    # start execution time
+    start = time.time()
 
     accuracy_score = run_SVM()
     
@@ -63,6 +66,15 @@ def openSVM():
     
     accuracy = Label(SVMScreen, text=str(round(accuracy_score,2)) + '%', font=('', 24), anchor=CENTER, background='#fff', fg='black')
     accuracy.place(x=30, y=90)
+    
+        # end execution time
+    execution_time = time.time() - start
+
+    # Log Area
+    bottomFrm = LabelFrame(SVMScreen, fg='#fff',text='Tempo de Execução', background='black')
+    execTimeFrm = Label(bottomFrm, text=str(round(execution_time, 4)) + ' s', fg='white', background='black', font=('', 11))
+    execTimeFrm.place(x=10, y=5)
+    bottomFrm.place(relwidth=1, relheight=0.2, rely=0.8)
 
 # Open haralick parameters screen
 def openHaralick():
@@ -170,7 +182,7 @@ def openHaralick():
 
     # Log Area
     bottomFrm = LabelFrame(haralickScreen, fg='#fff',text='Tempo de Execução', background='black')
-    execTimeFrm = Label(bottomFrm, text=str(round(execution_time, 4)) + ' ms', fg='white', background='black', font=('', 11))
+    execTimeFrm = Label(bottomFrm, text=str(round(execution_time, 4)) + ' s', fg='white', background='black', font=('', 11))
     execTimeFrm.place(x=10, y=5)
     bottomFrm.place(relwidth=1, relheight=0.2, rely=0.8)
 

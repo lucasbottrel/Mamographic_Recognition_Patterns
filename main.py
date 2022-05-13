@@ -1,16 +1,9 @@
 import time
 from tkinter import *
 from tkinter import filedialog
-from xml.etree.ElementTree import tostring
-from matplotlib import pyplot as plt
 from imageio import imread
-from skimage import data
-from skimage.feature import graycomatrix, graycoprops
-from skimage.measure import shannon_entropy
-from skimage.morphology import disk, ball
 from skimage import *
 from skimage import io
-import numpy as np
 from PIL import Image, ImageTk
 
 from haralick import *
@@ -64,10 +57,11 @@ def openSVM():
     title = Label(SVMScreen, text="Accuracy", font=('', 24), anchor=CENTER, background='#5559fd', fg='white')
     title.place(x=30, y=20)
     
+    # svm accuracy calculate and show
     accuracy = Label(SVMScreen, text=str(round(accuracy_score,2)) + '%', font=('', 24), anchor=CENTER, background='#fff', fg='black')
     accuracy.place(x=30, y=90)
     
-        # end execution time
+    # end execution time
     execution_time = time.time() - start
 
     # Log Area
@@ -200,15 +194,24 @@ def resampling(shades):
             resampled_img[i][j] = resampled_img[i][j] / maxValue * shades
 
     # show resample image
+    print(resampled_img)
     io.imshow(resampled_img, cmap='gray')
     io.show()
-    
+
+# image classification
 def img_classify():
     global filename
-    aux = imread(filename)
-    results = haralick_calcs(aux)
+    
+    # recover image and calculate haralick descriptors
+    img = imread(filename)
+    results = haralick_calcs(img)
+    
     global img_classification
+    
+    # update image classification
     img_classification = classify(results)
+    
+    # show classification of image on main screen
     classFrm = Label(bottomFrm, text=img_classification , fg='white', background='black', font=('', 16))
     classFrm.place(x=10, y=15)
     
@@ -233,7 +236,8 @@ calcMenu.add_command(label="Haralick", command=openHaralick)
 # Reamostragem Menu
 reamosMenu = Menu(menubar, tearoff=0)
 reamosMenu.add_command(label="32 tons de cinza",command=lambda: resampling(32))
-reamosMenu.add_command(label="16 tons de cinza",command=lambda: resampling(16))
+reamosMenu.add_command(label="24 tons de cinza",command=lambda: resampling(24))
+reamosMenu.add_command(label="16 tons de cinza", command=lambda: resampling(16))
 reamosMenu.add_command(label="8 tons de cinza", command=lambda: resampling(8))
 reamosMenu.add_command(label="4 tons de cinza", command=lambda: resampling(4))
 
@@ -241,8 +245,7 @@ reamosMenu.add_command(label="4 tons de cinza", command=lambda: resampling(4))
 svmMenu = Menu(menubar, tearoff=0)
 svmMenu.add_command(label="Treinar / Testar", command=openSVM)
 svmMenu.add_command(label="Classificar imagem", command=lambda: img_classify())
-svmMenu.add_command(label="Matriz de Confusão", command=confused_matrix)
-svmMenu.add_command(label="Comparação de Erros", command=compare_matrix)
+svmMenu.add_command(label="Matriz de Confusão", command=confusion_matrix)
 
 # Main Menus
 menubar.add_cascade(label="Imagem", menu=imgMenu)

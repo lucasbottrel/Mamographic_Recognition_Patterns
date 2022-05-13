@@ -45,21 +45,37 @@ def openSVM():
     SVMScreen = Tk()
     
     SVMScreen.wm_title("SVM Accuracy")
-    SVMScreen.geometry('400x250')
+    SVMScreen.geometry('500x300')
     SVMScreen.config(background="white")
 
     # start execution time
     start = time.time()
 
-    accuracy_score = run_SVM()
+    scores = run_SVM()
     
     # title of screen
-    title = Label(SVMScreen, text="Accuracy", font=('', 24), anchor=CENTER, background='#5559fd', fg='white')
+    title = Label(SVMScreen, text="Accuracy: ", font=('', 24), anchor=CENTER, background='#5559fd', fg='white')
     title.place(x=30, y=20)
     
     # svm accuracy calculate and show
-    accuracy = Label(SVMScreen, text=str(round(accuracy_score,2)) + '%', font=('', 24), anchor=CENTER, background='#fff', fg='black')
-    accuracy.place(x=30, y=90)
+    accuracy = Label(SVMScreen, text=str(round(scores[0],2)) + '%', font=('', 24), anchor=CENTER, background='#fff', fg='black')
+    accuracy.place(x=220, y=20)
+    
+    # title of screen
+    title = Label(SVMScreen, text="Sensitivity: ", font=('', 24), anchor=CENTER, background='#f77436', fg='white')
+    title.place(x=30, y=90)
+    
+    # svm accuracy calculate and show
+    accuracy = Label(SVMScreen, text=str(round(scores[1],2)) + '%', font=('', 24), anchor=CENTER, background='#fff', fg='black')
+    accuracy.place(x=220, y=90)
+    
+    # title of screen
+    title = Label(SVMScreen, text="Specificity: ", font=('', 24), anchor=CENTER, background='#c7fc26', fg='white')
+    title.place(x=30, y=160)
+    
+    # svm accuracy calculate and show
+    accuracy = Label(SVMScreen, text=str(round(scores[2],2)) + '%', font=('', 24), anchor=CENTER, background='#fff', fg='black')
+    accuracy.place(x=220, y=160)
     
     # end execution time
     execution_time = time.time() - start
@@ -245,7 +261,7 @@ reamosMenu.add_command(label="4 tons de cinza", command=lambda: resampling(4))
 svmMenu = Menu(menubar, tearoff=0)
 svmMenu.add_command(label="Treinar / Testar", command=openSVM)
 svmMenu.add_command(label="Classificar imagem", command=lambda: img_classify())
-svmMenu.add_command(label="Matriz de Confusão", command=confusion_matrix)
+svmMenu.add_command(label="Matriz de Confusão", command=show_confusion_matrix)
 
 # Main Menus
 menubar.add_cascade(label="Imagem", menu=imgMenu)

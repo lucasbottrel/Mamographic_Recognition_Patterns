@@ -4,7 +4,7 @@ import csv
 from pandas import read_csv
 from sklearn.model_selection import train_test_split
 from sklearn.svm import SVC
-from sklearn.metrics import accuracy_score, plot_confusion_matrix
+from sklearn.metrics import accuracy_score, plot_confusion_matrix, confusion_matrix
 from matplotlib import pyplot as plt
 import numpy as np
 
@@ -78,12 +78,23 @@ def run_SVM():
     classifier.fit(X_Training, Y_Training)
     # Check classifier accuracy on test data and see result
     predict_MP = classifier.predict(X_Test)
-    accuracy = accuracy_score(Y_Test, predict_MP) * 100
+
+    cm = confusion_matrix(Y_Test, predict_MP)
+
+    print('Confusion Matrix : \n', cm)
     
-    return accuracy
+    total1=sum(sum(cm))
+    # from confusion matrix calculate accuracy
+    accuracy=(cm[0,0]+cm[1,1]+cm[2,2]+cm[3,3])/total1 * 100
+
+    sensitivity = cm[0,0]/(cm[0,0]+cm[1,1]+cm[2,2]+cm[3,3]) * 100
+
+    specificity = cm[1,1]/(cm[0,0]+cm[1,1]+cm[2,2]+cm[3,3]) * 100
+    
+    return [accuracy, sensitivity, specificity]
 
 # create and show confusion matrix
-def confusion_matrix():
+def show_confusion_matrix():
     # Generate confusion matrix
     matrix = plot_confusion_matrix(classifier, X_Test, Y_Test,
                                     cmap=plt.cm.Blues,

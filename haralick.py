@@ -1,9 +1,6 @@
-import gc
 from haralickResult import haralickResult
-from skimage import data
 from skimage.feature import graycomatrix, graycoprops
 from skimage.measure import shannon_entropy
-from skimage.morphology import disk, ball
 from skimage import *
 import numpy as np
 

@@ -79,9 +79,8 @@ def run_SVM():
     # Check classifier accuracy on test data and see result
     predict_MP = classifier.predict(X_Test)
 
+    # Calculate confusion matrix
     cm = confusion_matrix(Y_Test, predict_MP)
-
-    print('Confusion Matrix : \n', cm)
     
     total1=sum(sum(cm))
     # from confusion matrix calculate accuracy

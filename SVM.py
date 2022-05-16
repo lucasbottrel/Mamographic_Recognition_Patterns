@@ -79,7 +79,7 @@ def run_SVM():
     # Classifier training using Suport Vector Machine(SVM)
     classifier = SVC(kernel='linear')
     # Training SVM
-    classifier.fit(X, Y)
+    classifier.fit(X_Training, Y_Training)
     # Check classifier accuracy on test data and see result
     predict_MP = classifier.predict(X_Test)
 

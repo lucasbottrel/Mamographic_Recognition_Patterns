@@ -110,10 +110,10 @@ def classify(results):
     
     # return the class of image
     if(classifier.predict(test)[0] == 1):
-        return 'BI-RADS I'
+        return 'BI-RADS 1'
     elif(classifier.predict(test)[0] == 2):
-        return 'BI-RADS II'
+        return 'BI-RADS 2'
     elif(classifier.predict(test)[0] == 3):
-        return 'BI-RADS III'
+        return 'BI-RADS 3'
     elif(classifier.predict(test)[0] == 4):
-        return 'BI-RADS IV'
+        return 'BI-RADS 4'

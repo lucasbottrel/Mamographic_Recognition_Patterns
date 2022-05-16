@@ -216,6 +216,9 @@ def resampling(shades):
 
 # image classification
 def img_classify():
+    
+    classFrm = Label(bottomFrm, text='' , fg='white', background='black', font=('', 16))
+    
     global filename
     
     # recover image and calculate haralick descriptors
@@ -228,8 +231,8 @@ def img_classify():
     img_classification = classify(results)
     
     # show classification of image on main screen
-    classFrm = Label(bottomFrm, text=img_classification , fg='white', background='black', font=('', 16))
-    classFrm.place(x=10, y=15)
+    classFrm = Label(bottomFrm, text=img_classification , fg='white', background='black', font=('', 20))
+    classFrm.place(x=10, y=20)
     
 
 # Main Screen

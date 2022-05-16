@@ -37,7 +37,7 @@ def upload_file():
 
     # define image to show on main screen
     img = (Image.open(filename))
-    img = ImageTk.PhotoImage(img.resize((400, 400), Image.ANTIALIAS))
+    img = ImageTk.PhotoImage(img.resize((400, 400)))
     imgFrm.config(image=img)
     imgFrm.pack()
 

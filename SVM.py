@@ -14,6 +14,8 @@ directory = None # actual directory
 classifier = None # classifier instance
 Y_Test = None # Class test
 X_Test = None # Descriptors test
+X = None
+Y = None
 
 # get actual directoy
 def getDirectory():
@@ -50,6 +52,8 @@ def run_SVM():
     global classifier
     global Y_Test
     global X_Test
+    global X
+    global Y
     
     # recover actual directory
     getDirectory()
@@ -70,21 +74,21 @@ def run_SVM():
     X = splitDatabase[:,0:15]
     Y = splitDatabase[:,15]
 
-    X_Training, X_Test, Y_Training, Y_Test = train_test_split(X,Y,test_size=0.25)
+    X_Training, X_Test, Y_Training, Y_Test = train_test_split(X_Test,Y_Test,test_size=0.25)
 
     # Classifier training using Suport Vector Machine(SVM)
     classifier = SVC(kernel='linear')
     # Training SVM
-    classifier.fit(X_Training, Y_Training)
+    classifier.fit(X, Y)
     # Check classifier accuracy on test data and see result
     predict_MP = classifier.predict(X_Test)
 
     # Calculate confusion matrix
     cm = confusion_matrix(Y_Test, predict_MP)
     
-    total1=sum(sum(cm))
+    total=sum(sum(cm))
     # from confusion matrix calculate accuracy
-    accuracy=(cm[0,0]+cm[1,1]+cm[2,2]+cm[3,3])/total1 * 100
+    accuracy=(cm[0,0]+cm[1,1]+cm[2,2]+cm[3,3])/total * 100
 
     sensitivity = cm[0,0]/(cm[0,0]+cm[1,1]+cm[2,2]+cm[3,3]) * 100
 
@@ -95,7 +99,7 @@ def run_SVM():
 # create and show confusion matrix
 def show_confusion_matrix():
     # Generate confusion matrix
-    matrix = plot_confusion_matrix(classifier, X_Test, Y_Test,
+    plot_confusion_matrix(classifier, X_Test, Y_Test,
                                     cmap=plt.cm.Blues,
                                     normalize=None,
                                     )

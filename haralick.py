@@ -4,6 +4,12 @@ from skimage.measure import shannon_entropy
 from skimage import *
 import numpy as np
 
+#def matrixSum(gcm_1, gcm_2, gcm_4, gcm_8, gcm_16):
+#   for i in range(96):
+    # for j in range(len(resampled_img)):
+    #   for j in range(len(resampled_img)):
+     #     resampled_img[i][j] = resampled_img[i][j] / maxValue * shades
+
 # calculate haralick parameters
 def haralick_calcs(img_calc):
     

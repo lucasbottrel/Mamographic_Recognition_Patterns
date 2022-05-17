@@ -97,7 +97,7 @@ def openHaralick():
     haralickScreen.wm_title("Haralick Calcs")
     haralickScreen.geometry('1120x550')
     haralickScreen.config(background="white")
-    haralickScreen.iconbitmap("Imagens/yoshi.ico")
+    haralickScreen.iconbitmap("Icons/yoshi.ico")
 
     # title of screen
     title = Label(haralickScreen, text="Descritores de Haralick", font=('', 24), anchor=CENTER, background='#5559fd', fg='white')
@@ -319,11 +319,14 @@ def img_classify():
     classFrm.place(x=10, y=20)
     
 
+# calculate degrees before start haralick descriptors
+calc_degrees()
+
 # Main Screen
 root = Tk()
 root.wm_title("Mamographic Recognition Patterns")
 root.geometry('1280x600')
-root.iconbitmap("Imagens/mushroom_up.ico")
+root.iconbitmap("Icons/mushroom_up.ico")
 
 # Menu Top
 menubar = Menu(root)

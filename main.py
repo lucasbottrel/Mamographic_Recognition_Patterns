@@ -23,12 +23,11 @@ def clear_label_image():
 def upload_file():
     clear_label_image()
 
-    global img
-    global img_calc
-    global filename
+    global img, img_calc, filename
 
     # accepted types for image files to upload
     f_types = (("Image files", "*.png *.jpeg"), ("All files", "*.*"))
+    
     # read filename from update image screen
     filename = filedialog.askopenfilename(filetypes=f_types)
 
@@ -94,7 +93,7 @@ def openHaralick():
     # open screen
     haralickScreen = Tk()
     haralickScreen.wm_title("Haralick Calcs")
-    haralickScreen.geometry('1120x400')
+    haralickScreen.geometry('1120x550')
     haralickScreen.config(background="white")
 
     # title of screen
@@ -122,6 +121,23 @@ def openHaralick():
     # entropy
     entrop_c1 = Label(haralickScreen, text="Entropia: " + str( round(haralick_results[0].entropy, 3)), font=('', 12), background="white")
     entrop_c1.place(x=30, y=200)
+    
+    # contrast
+    cont_c1 = Label(haralickScreen, text="Contraste: " + str( round(haralick_results[0].contrast, 3)), font=('', 12), background="white")
+    cont_c1.place(x=30, y=240)
+    
+    # dissimilarity
+    diss_c1 = Label(haralickScreen, text="Dissimilaridade: " + str( round(haralick_results[0].dissimilarity, 3)), font=('', 12), background="white")
+    diss_c1.place(x=30, y=280)
+    
+    # ASM
+    ASM_c1 = Label(haralickScreen, text="ASM: " + str( round(haralick_results[0].ASM, 3)), font=('', 12), background="white")
+    ASM_c1.place(x=30, y=320)
+    
+    # correlation
+    correl_c1 = Label(haralickScreen, text="Correlação: " + str( round(haralick_results[0].correlation, 3)), font=('', 12), background="white")
+    correl_c1.place(x=30, y=360)
+
 
     # C2 comatrix results
     c2 = Label(haralickScreen, text="C2 ", font=('', 14), background="white", fg='#5559fd')
@@ -138,6 +154,23 @@ def openHaralick():
     # entropy
     entrop_c2 = Label(haralickScreen, text="Entropia: " + str(round(haralick_results[1].entropy, 3)), font=('', 12), background="white")
     entrop_c2.place(x=250, y=200)
+    
+    # contrast
+    cont_c2 = Label(haralickScreen, text="Contraste: " + str(round(haralick_results[1].contrast, 3)), font=('', 12), background="white")
+    cont_c2.place(x=250, y=240)
+    
+    # dissimilarity
+    diss_c2 = Label(haralickScreen, text="Dissimilaridade: " + str(round(haralick_results[1].dissimilarity, 3)), font=('', 12), background="white")
+    diss_c2.place(x=250, y=280)
+    
+    # ASM
+    ASM_c2 = Label(haralickScreen, text="ASM: " + str(round(haralick_results[1].ASM, 3)), font=('', 12), background="white")
+    ASM_c2.place(x=250, y=320)
+    
+    # correlation
+    correl_c2 = Label(haralickScreen, text="Correlação: " + str(round(haralick_results[1].correlation, 3)), font=('', 12), background="white")
+    correl_c2.place(x=250, y=360)
+    
 
     # C4 comatrix results
     c4 = Label(haralickScreen, text="C4 ", font=('', 14), background="white", fg='#5559fd')
@@ -154,6 +187,23 @@ def openHaralick():
     # entropy
     entrop_c4 = Label(haralickScreen, text="Entropia: " + str(round(haralick_results[2].entropy, 3)), font=('', 12), background="white")
     entrop_c4.place(x=470, y=200)
+    
+    # contrast
+    cont_c4 = Label(haralickScreen, text="Contraste: " + str(round(haralick_results[2].contrast, 3)), font=('', 12), background="white")
+    cont_c4.place(x=470, y=240)
+    
+    # dissimilarity
+    diss_c4 = Label(haralickScreen, text="Dissimilaridade: " + str(round(haralick_results[2].dissimilarity, 3)), font=('', 12), background="white")
+    diss_c4.place(x=470, y=280)
+    
+    # ASM
+    ASM_c4 = Label(haralickScreen, text="ASM: " + str(round(haralick_results[2].ASM, 3)), font=('', 12), background="white")
+    ASM_c4.place(x=470, y=320)
+    
+    # correlation
+    correl_c4 = Label(haralickScreen, text="Correlação: " + str(round(haralick_results[2].correlation, 3)), font=('', 12), background="white")
+    correl_c4.place(x=470, y=360)
+    
 
     # C8 comatrix results
     c8 = Label(haralickScreen, text="C8 ", font=('', 14), background="white", fg='#5559fd')
@@ -171,6 +221,23 @@ def openHaralick():
     entrop_c8 = Label(haralickScreen, text="Entropia: " + str(round(haralick_results[3].entropy, 3)), font=('', 12), background="white")
     entrop_c8.place(x=690, y=200)
     
+        # contrast
+    cont_c8 = Label(haralickScreen, text="Contraste: " + str(round(haralick_results[3].contrast, 3)), font=('', 12), background="white")
+    cont_c8.place(x=690, y=240)
+    
+    # dissimilarity
+    diss_c8 = Label(haralickScreen, text="Dissimilaridade: " + str(round(haralick_results[3].dissimilarity, 3)), font=('', 12), background="white")
+    diss_c8.place(x=690, y=280)
+    
+    # ASM
+    ASM_c8 = Label(haralickScreen, text="ASM: " + str(round(haralick_results[3].ASM, 3)), font=('', 12), background="white")
+    ASM_c8.place(x=690, y=320)
+    
+    # correlation
+    correl_c8 = Label(haralickScreen, text="Correlação: " + str(round(haralick_results[3].correlation, 3)), font=('', 12), background="white")
+    correl_c8.place(x=690, y=360)
+
+    
     # C16 comatrix results
     c16 = Label(haralickScreen, text="C16 ", font=('', 14), background="white", fg='#5559fd')
     c16.place(x=910, y=80)
@@ -186,6 +253,22 @@ def openHaralick():
     # entropy
     entrop_c16 = Label(haralickScreen, text="Entropia: " + str(round(haralick_results[4].entropy, 3)), font=('', 12), background="white")
     entrop_c16.place(x=910, y=200)
+    
+    # contrast
+    cont_c16 = Label(haralickScreen, text="Contraste: " + str(round(haralick_results[4].contrast, 3)), font=('', 12), background="white")
+    cont_c16.place(x=910, y=240)
+    
+    # dissimilarity
+    diss_c16 = Label(haralickScreen, text="Dissimilaridade: " + str(round(haralick_results[4].dissimilarity, 3)), font=('', 12), background="white")
+    diss_c16.place(x=910, y=280)
+    
+    # ASM
+    ASM_c16 = Label(haralickScreen, text="ASM: " + str(round(haralick_results[4].ASM, 3)), font=('', 12), background="white")
+    ASM_c16.place(x=910, y=320)
+    
+    # correlation
+    correl_c16 = Label(haralickScreen, text="Correlação: " + str(round(haralick_results[4].correlation, 3)), font=('', 12), background="white")
+    correl_c16.place(x=910, y=360)
 
     # end execution time
     execution_time = time.time() - start
@@ -210,22 +293,19 @@ def resampling(shades):
             resampled_img[i][j] = resampled_img[i][j] / maxValue * shades
 
     # show resample image
-    print(resampled_img)
     io.imshow(resampled_img, cmap='gray')
     io.show()
 
 # image classification
 def img_classify():
     
+    global filename, img_classification
+    
     classFrm = Label(bottomFrm, text='' , fg='white', background='black', font=('', 16))
-    
-    global filename
-    
+        
     # recover image and calculate haralick descriptors
     img = imread(filename)
     results = haralick_calcs(img)
-    
-    global img_classification
     
     # update image classification
     img_classification = classify(results)
@@ -250,7 +330,7 @@ imgMenu.add_command(label="Substituir Imagem", command=upload_file)
 
 # Calc Menu
 calcMenu = Menu(menubar, tearoff=0)
-calcMenu.add_command(label="Haralick", command=openHaralick)
+calcMenu.add_command(label="Descritores de Haralick", command=openHaralick)
 
 # Reamostragem Menu
 reamosMenu = Menu(menubar, tearoff=0)

@@ -40,7 +40,12 @@ def getFileDescriptorsTraining():
             dataB = haralick_calcs(im)
             writeFile.writerow([round(dataB[0].homogeneity,3),round(dataB[1].homogeneity,3),round(dataB[2].homogeneity,3),round(dataB[3].homogeneity,3),round(dataB[4].homogeneity,3),
                                 round(dataB[0].energy,3),round(dataB[1].energy,3),round(dataB[2].energy,3),round(dataB[3].energy,3),round(dataB[4].energy,3),
-                                round(dataB[0].entropy,3),round(dataB[1].entropy,3),round(dataB[2].entropy,3),round(dataB[3].entropy,3),round(dataB[4].entropy,3),i])
+                                round(dataB[0].entropy,3),round(dataB[1].entropy,3),round(dataB[2].entropy,3),round(dataB[3].entropy,3),round(dataB[4].entropy,3),
+                                round(dataB[0].contrast,3),round(dataB[1].contrast,3),round(dataB[2].contrast,3),round(dataB[3].contrast,3),round(dataB[4].contrast,3),
+                                round(dataB[0].dissimilarity,3),round(dataB[1].dissimilarity,3),round(dataB[2].dissimilarity,3),round(dataB[3].dissimilarity,3),round(dataB[4].dissimilarity,3),
+                                round(dataB[0].ASM,3),round(dataB[1].ASM,3),round(dataB[2].ASM,3),round(dataB[3].ASM,3),round(dataB[4].ASM,3),
+                                round(dataB[0].correlation,3),round(dataB[1].correlation,3),round(dataB[2].correlation,3),round(dataB[3].correlation,3),round(dataB[4].correlation,3),
+                                i])
         
         i= i+1
             
@@ -49,11 +54,7 @@ def getFileDescriptorsTraining():
 # run SVM instance
 def run_SVM():
 
-    global classifier
-    global Y_Test
-    global X_Test
-    global X
-    global Y
+    global classifier, Y_Test, X_Test, X, Y
     
     # recover actual directory
     getDirectory()
@@ -71,13 +72,13 @@ def run_SVM():
     # Split the data in training and testing subsets
     splitDatabase = descriptors_data.values
 
-    X = splitDatabase[:,0:15]
-    Y = splitDatabase[:,15]
+    X = splitDatabase[:,0:35]
+    Y = splitDatabase[:,35]
 
-    X_Training, X_Test, Y_Training, Y_Test = train_test_split(X_Test,Y_Test,test_size=0.25)
+    X_Training, X_Test, Y_Training, Y_Test = train_test_split(X,Y,train_size=0.75, test_size=0.25, random_state=1)
 
     # Classifier training using Suport Vector Machine(SVM)
-    classifier = SVC(kernel='linear')
+    classifier = SVC(kernel='linear', C=0.65, decision_function_shape='ovo')
     # Training SVM
     classifier.fit(X_Training, Y_Training)
     # Check classifier accuracy on test data and see result
@@ -87,11 +88,10 @@ def run_SVM():
     cm = confusion_matrix(Y_Test, predict_MP)
     
     total=sum(sum(cm))
+    
     # from confusion matrix calculate accuracy
     accuracy=(cm[0,0]+cm[1,1]+cm[2,2]+cm[3,3])/total * 100
-
     sensitivity = cm[0,0]/(cm[0,0]+cm[1,1]+cm[2,2]+cm[3,3]) * 100
-
     specificity = cm[1,1]/(cm[0,0]+cm[1,1]+cm[2,2]+cm[3,3]) * 100
     
     return [accuracy, sensitivity, specificity]
@@ -109,8 +109,13 @@ def show_confusion_matrix():
 # classify image
 def classify(results):
     test = [[round(results[0].homogeneity,3),round(results[1].homogeneity,3),round(results[2].homogeneity,3),round(results[3].homogeneity,3),round(results[4].homogeneity,3),
-                                round(results[0].energy,3),round(results[1].energy,3),round(results[2].energy,3),round(results[3].energy,3),round(results[4].energy,3),
-                                round(results[0].entropy,3),round(results[1].entropy,3),round(results[2].entropy,3),round(results[3].entropy,3),round(results[4].entropy,3)]]
+             round(results[0].energy,3),round(results[1].energy,3),round(results[2].energy,3),round(results[3].energy,3),round(results[4].energy,3),
+             round(results[0].entropy,3),round(results[1].entropy,3),round(results[2].entropy,3),round(results[3].entropy,3),round(results[4].entropy,3),
+             round(results[0].contrast,3),round(results[1].contrast,3),round(results[2].contrast,3),round(results[3].contrast,3),round(results[4].contrast,3),
+             round(results[0].dissimilarity,3),round(results[1].dissimilarity,3),round(results[2].dissimilarity,3),round(results[3].dissimilarity,3),round(results[4].dissimilarity,3),
+             round(results[0].ASM,3),round(results[1].ASM,3),round(results[2].ASM,3),round(results[3].ASM,3),round(results[4].ASM,3),
+             round(results[0].correlation,3),round(results[1].correlation,3),round(results[2].correlation,3),round(results[3].correlation,3),round(results[4].correlation,3)
+            ]]
     
     # return the class of image
     if(classifier.predict(test)[0] == 1):

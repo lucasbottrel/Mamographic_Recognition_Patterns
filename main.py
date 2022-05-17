@@ -8,6 +8,8 @@ from PIL import Image, ImageTk
 
 from haralick import *
 from SVM import *
+from histogram import *
+from fourier import *
 
 img_calc = None # image loaded for calculation
 execution_time = 0 
@@ -95,6 +97,7 @@ def openHaralick():
     haralickScreen.wm_title("Haralick Calcs")
     haralickScreen.geometry('1120x550')
     haralickScreen.config(background="white")
+    haralickScreen.iconbitmap("Imagens/yoshi.ico")
 
     # title of screen
     title = Label(haralickScreen, text="Descritores de Haralick", font=('', 24), anchor=CENTER, background='#5559fd', fg='white')
@@ -284,9 +287,10 @@ def resampling(shades):
 
     # recover the original image
     resampled_img = imread(filename)
+    
     # find max value on the image to use by max on new image
     maxValue = resampled_img.max()
-
+    
     # update all image pixels to the resample value 
     for i in range(len(resampled_img)):
         for j in range(len(resampled_img)):
@@ -319,6 +323,7 @@ def img_classify():
 root = Tk()
 root.wm_title("Mamographic Recognition Patterns")
 root.geometry('1280x600')
+root.iconbitmap("Imagens/mushroom_up.ico")
 
 # Menu Top
 menubar = Menu(root)
@@ -331,6 +336,8 @@ imgMenu.add_command(label="Substituir Imagem", command=upload_file)
 # Calc Menu
 calcMenu = Menu(menubar, tearoff=0)
 calcMenu.add_command(label="Descritores de Haralick", command=openHaralick)
+calcMenu.add_command(label="Histograma de Frequências", command=lambda: run_Histogram(img_calc))
+calcMenu.add_command(label="Transformada de Fourier (FFT)", command=lambda: run_Fourier(img_calc))
 
 # Reamostragem Menu
 reamosMenu = Menu(menubar, tearoff=0)

@@ -4,6 +4,36 @@ from skimage.measure import shannon_entropy
 from skimage import *
 import numpy as np
 
+# def calcAngles():
+    
+#     findAngles_C1 = []
+#     findAngles_C2 = []
+#     findAngles_C4 = []
+#     findAngles_C8 = []
+#     findAngles_C16 = []
+#     findAngles_C1[0] = 45
+#     findAngles_C2[0] = 22.5
+#     findAngles_C4[0] = 15
+#     findAngles_C8[0] = 7.5
+#     findAngles_C8[0] = 3.75
+#     i = 1
+#     for i in range(96):
+#         if(i>8):
+#            findAngles_C1[i] = findAngles_C1
+
+#def matrixSum(gcm_1, gcm_2, gcm_4, gcm_8, gcm_16):
+
+#   sumMatrix1[][] = None
+#   sumMatrix2[][] = None
+#   sumMatrix4[][] = None
+#   sumMatrix8[][] = None
+#   sumMatrix16[][] = None
+
+#   for i in range(96):
+    # for j in range(len(gcm_1)):
+    #   for k in range(len(gcm_1)):
+     #     resampled_img[j][k] = resampled_img[i][j] / maxValue * shades
+
 # calculate haralick parameters
 def haralick_calcs(img_calc):
     

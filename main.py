@@ -231,7 +231,7 @@ imgMenu.add_command(label="Substituir Imagem", command=upload_file)
 
 # Calc Menu
 calcMenu = Menu(menubar, tearoff=0)
-calcMenu.add_command(label="Haralick", command=openHaralick)
+calcMenu.add_command(label="Descritores de Haralick", command=openHaralick)
 
 # Reamostragem Menu
 reamosMenu = Menu(menubar, tearoff=0)

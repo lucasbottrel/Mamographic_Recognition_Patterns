@@ -23,12 +23,11 @@ def clear_label_image():
 def upload_file():
     clear_label_image()
 
-    global img
-    global img_calc
-    global filename
+    global img, img_calc, filename
 
     # accepted types for image files to upload
     f_types = (("Image files", "*.png *.jpeg"), ("All files", "*.*"))
+    
     # read filename from update image screen
     filename = filedialog.askopenfilename(filetypes=f_types)
 
@@ -37,7 +36,7 @@ def upload_file():
 
     # define image to show on main screen
     img = (Image.open(filename))
-    img = ImageTk.PhotoImage(img.resize((400, 400), Image.ANTIALIAS))
+    img = ImageTk.PhotoImage(img.resize((400, 400)))
     imgFrm.config(image=img)
     imgFrm.pack()
 
@@ -45,21 +44,37 @@ def openSVM():
     SVMScreen = Tk()
     
     SVMScreen.wm_title("SVM Accuracy")
-    SVMScreen.geometry('400x250')
+    SVMScreen.geometry('500x300')
     SVMScreen.config(background="white")
 
     # start execution time
     start = time.time()
 
-    accuracy_score = run_SVM()
+    scores = run_SVM()
     
     # title of screen
-    title = Label(SVMScreen, text="Accuracy", font=('', 24), anchor=CENTER, background='#5559fd', fg='white')
+    title = Label(SVMScreen, text="Accuracy: ", font=('', 24), anchor=CENTER, background='#5559fd', fg='white')
     title.place(x=30, y=20)
     
     # svm accuracy calculate and show
-    accuracy = Label(SVMScreen, text=str(round(accuracy_score,2)) + '%', font=('', 24), anchor=CENTER, background='#fff', fg='black')
-    accuracy.place(x=30, y=90)
+    accuracy = Label(SVMScreen, text=str(round(scores[0],2)) + '%', font=('', 24), anchor=CENTER, background='#fff', fg='black')
+    accuracy.place(x=220, y=20)
+    
+    # title of screen
+    title = Label(SVMScreen, text="Sensitivity: ", font=('', 24), anchor=CENTER, background='#f77436', fg='white')
+    title.place(x=30, y=90)
+    
+    # svm accuracy calculate and show
+    accuracy = Label(SVMScreen, text=str(round(scores[1],2)) + '%', font=('', 24), anchor=CENTER, background='#fff', fg='black')
+    accuracy.place(x=220, y=90)
+    
+    # title of screen
+    title = Label(SVMScreen, text="Specificity: ", font=('', 24), anchor=CENTER, background='#c7fc26', fg='white')
+    title.place(x=30, y=160)
+    
+    # svm accuracy calculate and show
+    accuracy = Label(SVMScreen, text=str(round(scores[2],2)) + '%', font=('', 24), anchor=CENTER, background='#fff', fg='black')
+    accuracy.place(x=220, y=160)
     
     # end execution time
     execution_time = time.time() - start
@@ -78,7 +93,7 @@ def openHaralick():
     # open screen
     haralickScreen = Tk()
     haralickScreen.wm_title("Haralick Calcs")
-    haralickScreen.geometry('1120x400')
+    haralickScreen.geometry('1120x550')
     haralickScreen.config(background="white")
 
     # title of screen
@@ -106,6 +121,23 @@ def openHaralick():
     # entropy
     entrop_c1 = Label(haralickScreen, text="Entropia: " + str( round(haralick_results[0].entropy, 3)), font=('', 12), background="white")
     entrop_c1.place(x=30, y=200)
+    
+    # contrast
+    cont_c1 = Label(haralickScreen, text="Contraste: " + str( round(haralick_results[0].contrast, 3)), font=('', 12), background="white")
+    cont_c1.place(x=30, y=240)
+    
+    # dissimilarity
+    diss_c1 = Label(haralickScreen, text="Dissimilaridade: " + str( round(haralick_results[0].dissimilarity, 3)), font=('', 12), background="white")
+    diss_c1.place(x=30, y=280)
+    
+    # ASM
+    ASM_c1 = Label(haralickScreen, text="ASM: " + str( round(haralick_results[0].ASM, 3)), font=('', 12), background="white")
+    ASM_c1.place(x=30, y=320)
+    
+    # correlation
+    correl_c1 = Label(haralickScreen, text="Correlação: " + str( round(haralick_results[0].correlation, 3)), font=('', 12), background="white")
+    correl_c1.place(x=30, y=360)
+
 
     # C2 comatrix results
     c2 = Label(haralickScreen, text="C2 ", font=('', 14), background="white", fg='#5559fd')
@@ -122,6 +154,23 @@ def openHaralick():
     # entropy
     entrop_c2 = Label(haralickScreen, text="Entropia: " + str(round(haralick_results[1].entropy, 3)), font=('', 12), background="white")
     entrop_c2.place(x=250, y=200)
+    
+    # contrast
+    cont_c2 = Label(haralickScreen, text="Contraste: " + str(round(haralick_results[1].contrast, 3)), font=('', 12), background="white")
+    cont_c2.place(x=250, y=240)
+    
+    # dissimilarity
+    diss_c2 = Label(haralickScreen, text="Dissimilaridade: " + str(round(haralick_results[1].dissimilarity, 3)), font=('', 12), background="white")
+    diss_c2.place(x=250, y=280)
+    
+    # ASM
+    ASM_c2 = Label(haralickScreen, text="ASM: " + str(round(haralick_results[1].ASM, 3)), font=('', 12), background="white")
+    ASM_c2.place(x=250, y=320)
+    
+    # correlation
+    correl_c2 = Label(haralickScreen, text="Correlação: " + str(round(haralick_results[1].correlation, 3)), font=('', 12), background="white")
+    correl_c2.place(x=250, y=360)
+    
 
     # C4 comatrix results
     c4 = Label(haralickScreen, text="C4 ", font=('', 14), background="white", fg='#5559fd')
@@ -138,6 +187,23 @@ def openHaralick():
     # entropy
     entrop_c4 = Label(haralickScreen, text="Entropia: " + str(round(haralick_results[2].entropy, 3)), font=('', 12), background="white")
     entrop_c4.place(x=470, y=200)
+    
+    # contrast
+    cont_c4 = Label(haralickScreen, text="Contraste: " + str(round(haralick_results[2].contrast, 3)), font=('', 12), background="white")
+    cont_c4.place(x=470, y=240)
+    
+    # dissimilarity
+    diss_c4 = Label(haralickScreen, text="Dissimilaridade: " + str(round(haralick_results[2].dissimilarity, 3)), font=('', 12), background="white")
+    diss_c4.place(x=470, y=280)
+    
+    # ASM
+    ASM_c4 = Label(haralickScreen, text="ASM: " + str(round(haralick_results[2].ASM, 3)), font=('', 12), background="white")
+    ASM_c4.place(x=470, y=320)
+    
+    # correlation
+    correl_c4 = Label(haralickScreen, text="Correlação: " + str(round(haralick_results[2].correlation, 3)), font=('', 12), background="white")
+    correl_c4.place(x=470, y=360)
+    
 
     # C8 comatrix results
     c8 = Label(haralickScreen, text="C8 ", font=('', 14), background="white", fg='#5559fd')
@@ -155,6 +221,23 @@ def openHaralick():
     entrop_c8 = Label(haralickScreen, text="Entropia: " + str(round(haralick_results[3].entropy, 3)), font=('', 12), background="white")
     entrop_c8.place(x=690, y=200)
     
+        # contrast
+    cont_c8 = Label(haralickScreen, text="Contraste: " + str(round(haralick_results[3].contrast, 3)), font=('', 12), background="white")
+    cont_c8.place(x=690, y=240)
+    
+    # dissimilarity
+    diss_c8 = Label(haralickScreen, text="Dissimilaridade: " + str(round(haralick_results[3].dissimilarity, 3)), font=('', 12), background="white")
+    diss_c8.place(x=690, y=280)
+    
+    # ASM
+    ASM_c8 = Label(haralickScreen, text="ASM: " + str(round(haralick_results[3].ASM, 3)), font=('', 12), background="white")
+    ASM_c8.place(x=690, y=320)
+    
+    # correlation
+    correl_c8 = Label(haralickScreen, text="Correlação: " + str(round(haralick_results[3].correlation, 3)), font=('', 12), background="white")
+    correl_c8.place(x=690, y=360)
+
+    
     # C16 comatrix results
     c16 = Label(haralickScreen, text="C16 ", font=('', 14), background="white", fg='#5559fd')
     c16.place(x=910, y=80)
@@ -170,6 +253,22 @@ def openHaralick():
     # entropy
     entrop_c16 = Label(haralickScreen, text="Entropia: " + str(round(haralick_results[4].entropy, 3)), font=('', 12), background="white")
     entrop_c16.place(x=910, y=200)
+    
+    # contrast
+    cont_c16 = Label(haralickScreen, text="Contraste: " + str(round(haralick_results[4].contrast, 3)), font=('', 12), background="white")
+    cont_c16.place(x=910, y=240)
+    
+    # dissimilarity
+    diss_c16 = Label(haralickScreen, text="Dissimilaridade: " + str(round(haralick_results[4].dissimilarity, 3)), font=('', 12), background="white")
+    diss_c16.place(x=910, y=280)
+    
+    # ASM
+    ASM_c16 = Label(haralickScreen, text="ASM: " + str(round(haralick_results[4].ASM, 3)), font=('', 12), background="white")
+    ASM_c16.place(x=910, y=320)
+    
+    # correlation
+    correl_c16 = Label(haralickScreen, text="Correlação: " + str(round(haralick_results[4].correlation, 3)), font=('', 12), background="white")
+    correl_c16.place(x=910, y=360)
 
     # end execution time
     execution_time = time.time() - start
@@ -194,26 +293,26 @@ def resampling(shades):
             resampled_img[i][j] = resampled_img[i][j] / maxValue * shades
 
     # show resample image
-    print(resampled_img)
     io.imshow(resampled_img, cmap='gray')
     io.show()
 
 # image classification
 def img_classify():
-    global filename
     
+    global filename, img_classification
+    
+    classFrm = Label(bottomFrm, text='' , fg='white', background='black', font=('', 16))
+        
     # recover image and calculate haralick descriptors
     img = imread(filename)
     results = haralick_calcs(img)
-    
-    global img_classification
     
     # update image classification
     img_classification = classify(results)
     
     # show classification of image on main screen
-    classFrm = Label(bottomFrm, text=img_classification , fg='white', background='black', font=('', 16))
-    classFrm.place(x=10, y=15)
+    classFrm = Label(bottomFrm, text=img_classification , fg='white', background='black', font=('', 20))
+    classFrm.place(x=10, y=20)
     
 
 # Main Screen
@@ -245,7 +344,7 @@ reamosMenu.add_command(label="4 tons de cinza", command=lambda: resampling(4))
 svmMenu = Menu(menubar, tearoff=0)
 svmMenu.add_command(label="Treinar / Testar", command=openSVM)
 svmMenu.add_command(label="Classificar imagem", command=lambda: img_classify())
-svmMenu.add_command(label="Matriz de Confusão", command=confusion_matrix)
+svmMenu.add_command(label="Matriz de Confusão", command=show_confusion_matrix)
 
 # Main Menus
 menubar.add_cascade(label="Imagem", menu=imgMenu)

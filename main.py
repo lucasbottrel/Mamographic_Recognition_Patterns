@@ -63,20 +63,12 @@ def openSVM():
     accuracy.place(x=220, y=20)
     
     # title of screen
-    title = Label(SVMScreen, text="Sensitivity: ", font=('', 24), anchor=CENTER, background='#f77436', fg='white')
+    title = Label(SVMScreen, text="Specificity: ", font=('', 24), anchor=CENTER, background='#f77436', fg='white')
     title.place(x=30, y=90)
     
     # svm accuracy calculate and show
     accuracy = Label(SVMScreen, text=str(round(scores[1],2)) + '%', font=('', 24), anchor=CENTER, background='#fff', fg='black')
     accuracy.place(x=220, y=90)
-    
-    # title of screen
-    title = Label(SVMScreen, text="Specificity: ", font=('', 24), anchor=CENTER, background='#c7fc26', fg='white')
-    title.place(x=30, y=160)
-    
-    # svm accuracy calculate and show
-    accuracy = Label(SVMScreen, text=str(round(scores[2],2)) + '%', font=('', 24), anchor=CENTER, background='#fff', fg='black')
-    accuracy.place(x=220, y=160)
     
     # end execution time
     execution_time = time.time() - start

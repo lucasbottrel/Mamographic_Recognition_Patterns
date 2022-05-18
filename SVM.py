@@ -93,10 +93,9 @@ def run_SVM():
     
     # from confusion matrix calculate accuracy
     accuracy=(cm[0,0]+cm[1,1]+cm[2,2]+cm[3,3])/total * 100
-    sensitivity = cm[0,0]/(cm[0,0]+cm[1,1]+cm[2,2]+cm[3,3]) * 100
-    specificity = cm[1,1]/(cm[0,0]+cm[1,1]+cm[2,2]+cm[3,3]) * 100
+    specificity = (1 - ((total - cm[0,0]-cm[1,1]-cm[2,2]-cm[3,3]) / 300)) * 100
     
-    return [accuracy, sensitivity, specificity]
+    return [accuracy, specificity]
 
 # create and show confusion matrix
 def show_confusion_matrix():

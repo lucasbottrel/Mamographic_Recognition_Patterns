@@ -71,12 +71,10 @@ def run_SVM():
 
     # Split the data in training and testing subsets
     splitDatabase = descriptors_data.values
-
     X = splitDatabase[:,0:35]
     Y = splitDatabase[:,35]
 
-    X_Training, X_Test, Y_Training, Y_Test = train_test_split(X,Y,train_size=0.75, test_size=0.25, random_state=29)
-
+    X_Training, X_Test, Y_Training, Y_Test = train_test_split(X,Y,train_size=0.75, test_size=0.25, random_state=1182)
     # Classifier training using Suport Vector Machine(SVM)
     classifier = SVC(kernel='linear', C=0.65, decision_function_shape='ovo')
     
